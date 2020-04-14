@@ -28,8 +28,13 @@ class MyHomePage extends StatelessWidget {
         child: Column(
          children: <Widget>[
            // chart area
-           Card(
+           Container(
+             width: double.infinity,
+             child: Card(
+            color: Colors.blue,
              child: Text('CHART'),
+             elevation: 5,
+           ),
            ),
            Card(
              child: Text('LIST OF TX'),)
