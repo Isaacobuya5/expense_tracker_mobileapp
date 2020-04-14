@@ -26,6 +26,8 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
          children: <Widget>[
            // chart area
            Container(
@@ -37,6 +39,7 @@ class MyHomePage extends StatelessWidget {
            ),
            ),
            Card(
+             color: Colors.red,
              child: Text('LIST OF TX'),)
          ],
         ),
