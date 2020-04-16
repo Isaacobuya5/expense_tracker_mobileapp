@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main() => runApp(MyApp());
@@ -32,7 +33,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
          children: <Widget>[
            // chart area
@@ -44,6 +45,29 @@ class MyHomePage extends StatelessWidget {
              elevation: 5,
            ),
            ),
+        Card(
+           child: Container(
+             padding: EdgeInsets.all(10.0),
+             child:Column(
+             crossAxisAlignment: CrossAxisAlignment.end, 
+             children: <Widget>[
+               TextField(decoration: InputDecoration(
+                 labelText: 'Title'
+               ),),
+               TextField(
+                 decoration: InputDecoration(
+                   labelText: 'Amount'
+                 ),
+               
+               ),
+               FlatButton(
+                 onPressed: (){}, 
+                 textColor: Colors.purple,
+                 child: Text('Add Transaction'))
+             ]
+           ),
+        ),
+        ),
         Column(
           children: transactions.map((transaction) {
             return Card(
@@ -59,7 +83,7 @@ class MyHomePage extends StatelessWidget {
                       border: Border.all(width: 2, color: Colors.purple, style: BorderStyle.solid)
                     ),
                     child: Text(
-                      transaction.amount.toString(),
+                       '\$${transaction.amount}',
                       style: TextStyle(
                         color: Colors.purple,
                         fontSize: 20.0,
@@ -74,7 +98,7 @@ class MyHomePage extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.bold
                       ),),
-                      Text(transaction.date.toString(),
+                      Text(DateFormat().format(transaction.date),
                       style: TextStyle(
                         color: Colors.grey
                       ),)
