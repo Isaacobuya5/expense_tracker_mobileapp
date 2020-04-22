@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './widgets/chart.dart';
 import './models/transaction.dart';
 import './widgets/new_transactions.dart';
 import './widgets/transaction_list.dart';
@@ -92,11 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
            // chart area
            Container(
              width: double.infinity,
-             child: Card(
-            color: Colors.blue,
-             child: Text('CHART'),
-             elevation: 5,
-           ),
+             child: Chart(),
            ),
          TransactionList(transactions: _userTransaction,),
          ],
