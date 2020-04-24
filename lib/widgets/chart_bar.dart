@@ -12,7 +12,9 @@ class Chartbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget> [
-        Text('\$${spendingAmount.toStringAsFixed(0)}'),
+        // Fitted box prevents the child from wrapping to the next line
+        // thus shrinks the child as much as possible to occupy only it space
+        FittedBox(child: Text('\$${spendingAmount.toStringAsFixed(0)}')),
         SizedBox(height: 4,),
         Container(
           height: 60,
