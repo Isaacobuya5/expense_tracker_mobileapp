@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Open Sans',
             fontSize: 18,
             fontWeight: FontWeight.bold
-          )
+          ),
+          button: TextStyle(color: Colors.white)
         ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -59,8 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // method to add a new transaction
-  void _addNewTransaction(String title, double amount) {
-    final newTransaction = new Transaction(id: DateTime.now().toString(), title: title, amount: amount, date: DateTime.now());
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
+    final newTransaction = new Transaction(id: DateTime.now().toString(), title: title, amount: amount, date: chosenDate);
 
     // we now need to update the transaction list
     setState(() {
