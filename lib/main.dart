@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
             fontSize: 18,
             fontWeight: FontWeight.bold
           ),
-          button: TextStyle(color: Colors.white)
+          button: TextStyle(color: Colors.white),
         ),
+        errorColor: Colors.red,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
             title: TextStyle(fontFamily: 'Open Sans', fontSize: 20, fontWeight: FontWeight.bold)
@@ -81,6 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // method for deleting a transaction
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
              width: double.infinity,
              child: Chart(_recentTransactions),
            ),
-         TransactionList(transactions: _userTransaction,),
+         TransactionList(transactions: _userTransaction,deleteTransaction: _deleteTransaction),
          ],
         ),
       ),
