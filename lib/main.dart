@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // check if the app is displayed in Landscape mode
-    // final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
         title: Text("Expense Tracker App",),
         actions: <Widget>[
@@ -105,6 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       );
 
+      final transactionList = Container(
+           height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
+           - MediaQuery.of(context).padding.top) * 0.7,
+           child: TransactionList(transactions: _userTransaction,deleteTransaction: _deleteTransaction));
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -113,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
          children: <Widget>[
            // show switch to allow user display chart dynamically
-           Row(
+           if(isLandscape) Row(
              mainAxisAlignment: MainAxisAlignment.center,
              children: <Widget>[
                Text('Show Chart'),
@@ -127,17 +132,23 @@ class _MyHomePageState extends State<MyHomePage> {
                  ),
              ],
            ),
+           if (!isLandscape) Container(
+             height: (MediaQuery.of(context).size.height - appBar.preferredSize.height 
+             - MediaQuery.of(context).padding.top) * 0.3,
+             width: double.infinity,
+             child: Chart(_recentTransactions),
+           ),
+
+           if (!isLandscape) transactionList,
            // chart area
+           if (isLandscape)
            _showChart ? Container(
              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height 
              - MediaQuery.of(context).padding.top) * 0.7,
              width: double.infinity,
              child: Chart(_recentTransactions),
            ) : 
-         Container(
-           height: (MediaQuery.of(context).size.height - appBar.preferredSize.height
-           - MediaQuery.of(context).padding.top) * 0.7,
-           child: TransactionList(transactions: _userTransaction,deleteTransaction: _deleteTransaction)),
+         transactionList,
          ],
         ),
       ),
