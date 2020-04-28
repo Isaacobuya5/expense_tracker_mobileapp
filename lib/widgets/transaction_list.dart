@@ -14,18 +14,23 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
     height: 450,
-    child: transactions.isEmpty ? Column(
-      children: <Widget>[
-        Text('No transactions currently available', style:
-        Theme.of(context).textTheme.title,),
-        // SizedBox are a great way to add separators since its not a must to define child for them
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-          height: 200,
-          child: Image.asset('assets/images/waiting.png', fit: BoxFit.cover,))
-      ],
+    child: transactions.isEmpty ? LayoutBuilder(
+      builder: (context, constraint) {
+        return Column(
+        children: <Widget>[
+          Text('No transactions currently available', style:
+          Theme.of(context).textTheme.title,),
+          // SizedBox are a great way to add separators since its not a must to define child for them
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            height: constraint.maxHeight * 0.6,
+            child: Image.asset('assets/images/waiting.png', fit: BoxFit.cover,))
+        ],
+      );
+      },
+     
     ) : ListView.builder(
           itemBuilder: (context, index) {
          return Card(
