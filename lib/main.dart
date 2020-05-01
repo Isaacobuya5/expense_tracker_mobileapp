@@ -93,6 +93,38 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery, AppBar appBar, Widget transactionList) {
+    return [Row(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: <Widget>[
+               Text('Show Chart'),
+               Switch(
+                 value: _showChart,
+                 onChanged: (val) {
+                   setState(() {
+                     _showChart = val;
+                   });
+                 },
+                 ),
+             ],
+           ),_showChart ? Container(
+             height: (mediaQuery.size.height - appBar.preferredSize.height 
+             - mediaQuery.padding.top) * 0.7,
+             width: double.infinity,
+             child: Chart(_recentTransactions),
+           ) : 
+         transactionList];
+  }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery, AppBar appBar, Widget transactionList) {
+     return [Container(
+             height: (mediaQuery.size.height - appBar.preferredSize.height 
+             - mediaQuery.padding.top) * 0.3,
+             width: double.infinity,
+             child: Chart(_recentTransactions),
+           ),transactionList];
+  }
+
   @override
   Widget build(BuildContext context) {
       final mediaQuery = MediaQuery.of(context);
@@ -120,37 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
          children: <Widget>[
            // show switch to allow user display chart dynamically
-           if(isLandscape) Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-               Text('Show Chart'),
-               Switch(
-                 value: _showChart,
-                 onChanged: (val) {
-                   setState(() {
-                     _showChart = val;
-                   });
-                 },
-                 ),
-             ],
-           ),
-           if (!isLandscape) Container(
-             height: (mediaQuery.size.height - appBar.preferredSize.height 
-             - mediaQuery.padding.top) * 0.3,
-             width: double.infinity,
-             child: Chart(_recentTransactions),
-           ),
-
-           if (!isLandscape) transactionList,
-           // chart area
-           if (isLandscape)
-           _showChart ? Container(
-             height: (mediaQuery.size.height - appBar.preferredSize.height 
-             - mediaQuery.padding.top) * 0.7,
-             width: double.infinity,
-             child: Chart(_recentTransactions),
-           ) : 
-         transactionList,
+           if(isLandscape) ..._buildLandscapeContent(mediaQuery, appBar, transactionList),
+           if (!isLandscape) ..._buildPortraitContent(mediaQuery, appBar, transactionList),  
          ],
         ),
       ),
